@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-import json
 import requests
 import sys
 
@@ -16,10 +15,10 @@ class App:
     def __str__(self):
         return str(self.id) +"\n"+str(self.name)+"\n"+str(self.stars)+"\n"+str(self.ratings)+"\n"+str(self.lastUpdated)
 
+
 class AttributeScraper:
-    def __init__(self, baseUrl, platform):
+    def __init__(self, baseUrl):
         self.baseUrl = baseUrl
-        self.platform = platform
 
     def scrape(self):
         try:
@@ -29,10 +28,10 @@ class AttributeScraper:
             print (err)
             sys.exit(1)
 
-        if self.platform == 'ios':
-            self.scrapeIos(r)
+        if "apple" in self.baseUrl:
+            return self.scrapeIos(r)
         else:
-            self.scrapeAndroid(r)
+            return self.scrapeAndroid(r)
 
     def scrapeIos(self, response):
         data = response.json()['results'][0]
@@ -42,14 +41,13 @@ class AttributeScraper:
         ratings = data['userRatingCount']
         lastUpdated = data['currentVersionReleaseDate']
 
-        print(App(id, name, stars, ratings, lastUpdated))
+        return (App(id, name, stars, ratings, lastUpdated))
 
     def scrapeAndroid(self, response):
-        c = response.content
-        data = BeautifulSoup(c, "html.parser")
+        data = BeautifulSoup(response.content, "html.parser")
         id = 513121
         name = data.find(class_="id-app-title").get_text()
         stars = data.find(class_="score").get_text()
         ratings = data.find(class_="reviews-num").get_text()
         lastUpdated = data.find(itemprop="datePublished").get_text()
-        print(App(id, name, stars, ratings, lastUpdated))
+        return (App(id, name, stars, ratings, lastUpdated))
