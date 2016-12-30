@@ -14,11 +14,4 @@ iosXPaths = {'id':'trackId' ,'name': 'trackCensoredName', 'stars': 'averageUserR
 androidUrl = 'https://play.google.com/store/apps/details?id=' + args['android']
 
 AttributeScraper(iosUrl, "ios").scrape()
-
-
-# print(iosUrl)
-
-
-
-# print(androidUrl)
-
+AttributeScraper(androidUrl, "android").scrape()

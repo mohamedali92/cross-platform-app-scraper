@@ -1,8 +1,7 @@
-#from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
 import json
 import requests
 import sys
-#import urllib2
 
 
 class App:
@@ -45,8 +44,12 @@ class AttributeScraper:
 
         print(App(id, name, stars, ratings, lastUpdated))
 
-
-
-
     def scrapeAndroid(self, response):
-        print ("hello")
+        c = response.content
+        data = BeautifulSoup(c, "html.parser")
+        id = 513121
+        name = data.find(class_="id-app-title").get_text()
+        stars = data.find(class_="score").get_text()
+        ratings = data.find(class_="reviews-num").get_text()
+        lastUpdated = data.find(itemprop="datePublished").get_text()
+        print(App(id, name, stars, ratings, lastUpdated))
