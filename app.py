@@ -24,8 +24,8 @@ class AttributeScraper:
         try:
             r = requests.get(self.baseUrl)
             r.raise_for_status()
-        except requests.exceptions.HTTPError as err:
-            print (err)
+        except requests.exceptions.RequestException as e:
+            print (e)
             sys.exit(1)
 
         if "apple" in self.baseUrl:
@@ -45,7 +45,7 @@ class AttributeScraper:
 
     def scrapeAndroid(self, response):
         data = BeautifulSoup(response.content, "html.parser")
-        id = 513121
+        id = data.find(class_="app-compatibility").get('data-docid')
         name = data.find(class_="id-app-title").get_text()
         stars = data.find(class_="score").get_text()
         ratings = data.find(class_="reviews-num").get_text()
