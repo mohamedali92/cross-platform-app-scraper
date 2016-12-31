@@ -4,5 +4,7 @@ You can use this multi-platform scaper to collect the stars, ratings and the dat
 usage:  
 ```
 python main.py -a androidAppId -i iOSAppId
-```
+```   
+For a dataset of 80,000 cross-platform apps (ios & Android) checkout my other repo:   
+[cross-platform apps](https://github.com/mohamedali92/cross-platform-apps)    
 If you have any questions or comments, please dont hesitate to contact me at mohamed.ali92ubc@gmail.com
