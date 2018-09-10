@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 import sys
-AWS_ACCESS_KEY=1234
-AWS_SECRET_ID=1213
 
 class App:
 
